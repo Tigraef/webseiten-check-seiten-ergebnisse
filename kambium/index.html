@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Webseiten-Check Kambium</title>
+<style>
+/* Layout: mobil zuerst. Farbiger Ergebnis-Kopf mit Messring, drei Befund-Karten, Kontakt; Details aufklappbar; auf dem Handy eine feste Kontaktleiste unten */
+:root {
+  --bg: #eef2f1;
+  --surface: #ffffff;
+  --ink: #12211f;
+  --muted: #5a6866;
+  --line: #d9e1df;
+  --hero: #0e3b3a;
+  --hero-2: #145250;
+  --on-hero: #f1f7f5;
+  --accent: #0f7a6c;
+  --accent-soft: #dcefeb;
+  --score: #f2b33d;
+  --good: #23845a;
+  --warn: #b77812;
+  --bad: #c04a3c;
+  --good-soft: #e1f2e9;
+  --warn-soft: #fbefd8;
+  --bad-soft: #f9e3df;
+  --shadow: 0 1px 2px rgba(18, 33, 31, .06), 0 8px 24px rgba(18, 33, 31, .06);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1413; --surface: #152120; --ink: #e7f0ee; --muted: #9db0ac; --line: #263634;
+    --hero: #0f2f2e; --hero-2: #154442; --on-hero: #eef7f4; --accent: #4cc2ae; --accent-soft: #163a35;
+    --score: #f5c15e; --good: #63c690; --warn: #e6ae4f; --bad: #ef8a7c;
+    --good-soft: #15332a; --warn-soft: #3a2d14; --bad-soft: #3d201c; --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1413; --surface: #152120; --ink: #e7f0ee; --muted: #9db0ac; --line: #263634;
+  --hero: #0f2f2e; --hero-2: #154442; --on-hero: #eef7f4; --accent: #4cc2ae; --accent-soft: #163a35;
+  --score: #f5c15e; --good: #63c690; --warn: #e6ae4f; --bad: #ef8a7c;
+  --good-soft: #15332a; --warn-soft: #3a2d14; --bad-soft: #3d201c; --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px 104px;
+}
+.wrap { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.wrap > *, .details > * { min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h2 { font-size: 22px; font-weight: 800; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; }
+section { display: grid; gap: 14px; }
+.muted { color: var(--muted); }
+
+/* Ergebnis-Kopf */
+.hero {
+  background: radial-gradient(120% 90% at 100% 0%, var(--hero-2) 0%, var(--hero) 60%);
+  color: var(--on-hero); border-radius: 22px; padding: 24px 20px 26px; display: grid; gap: 20px;
+}
+.hero-top { display: grid; gap: 6px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.hero h1 { font-size: clamp(24px, 7vw, 40px); font-weight: 800; overflow-wrap: anywhere; }
+.hero .who { font-size: 15px; opacity: .85; }
+.score { display: flex; align-items: center; gap: 18px; }
+.ring { width: 112px; height: 112px; flex: 0 0 auto; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .track { stroke: rgba(255, 255, 255, .16); }
+.ring .value { stroke: var(--score); stroke-linecap: round; }
+.ring .num { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; line-height: 1; }
+.ring .num strong { font-family: var(--font-display); font-size: 40px; font-weight: 800; }
+.ring .num span { font-size: 12px; opacity: .8; margin-top: 4px; }
+.score-text { display: grid; gap: 8px; min-width: 0; }
+.badge { display: inline-block; width: fit-content; background: var(--score); color: #2a1d02; font-weight: 800; font-size: 13px; border-radius: 99px; padding: 4px 12px; }
+.score-text p { font-size: 16px; }
+.meter { display: grid; gap: 6px; }
+.meter-bar { position: relative; display: grid; grid-template-columns: 45fr 25fr 30fr; gap: 3px; height: 8px; }
+.meter-bar i { border-radius: 99px; }
+.meter-bar i:nth-child(1) { background: #e0796c; }
+.meter-bar i:nth-child(2) { background: #f2b33d; }
+.meter-bar i:nth-child(3) { background: #5cc08b; }
+.meter-bar b { position: absolute; top: -5px; left: 46%; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--on-hero); border: 4px solid #f2b33d; }
+.meter-labels { display: grid; grid-template-columns: 45fr 25fr 30fr; font-size: 12px; opacity: .8; }
+
+/* Befund-Karten */
+.cards { display: grid; gap: 12px; }
+.card { background: var(--surface); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--line); display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+.icon { width: 44px; height: 44px; border-radius: 12px; background: var(--bad-soft); color: var(--bad); display: grid; place-content: center; }
+.icon svg { width: 22px; height: 22px; }
+.card div { display: grid; gap: 4px; min-width: 0; }
+.card p { font-size: 15px; color: var(--muted); }
+
+/* Kontakt */
+.contact { background: var(--surface); border: 2px solid var(--accent); border-radius: 18px; padding: 20px; display: grid; gap: 14px; scroll-margin-top: 16px; }
+.contact p { color: var(--muted); }
+.contact-lines { display: grid; gap: 8px; }
+.contact-line { display: grid; grid-template-columns: 76px 1fr auto; gap: 10px; align-items: center; background: var(--accent-soft); border-radius: 12px; padding: 10px 12px; font-weight: 600; min-width: 0; }
+.contact-line span { font-size: 13px; font-weight: 500; color: var(--muted); }
+.contact-line .val { overflow-wrap: anywhere; }
+@media (max-width: 519px) {
+  .contact-line { grid-template-columns: minmax(0,1fr) auto; row-gap: 2px; }
+  .contact-line > span:first-child { grid-column: 1; grid-row: 1; }
+  .contact-line .val { grid-column: 1; grid-row: 2; overflow-wrap: normal; }
+  .contact-line .copy, .contact-line > span:last-child { grid-column: 2; grid-row: 1 / span 2; }
+}
+.copy { font: 600 13px var(--font-body); color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 8px; padding: 6px 10px; cursor: pointer; min-height: 34px; }
+
+/* Details-Knopf */
+.toggle { width: 100%; font: 700 16px var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 15px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
+.toggle svg { width: 20px; height: 20px; transition: transform .2s; }
+.toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.details { display: grid; gap: 28px; }
+.details[hidden] { display: none; }
+
+/* Stärken */
+.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.list li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font-size: 15px; }
+.tick { width: 26px; height: 26px; border-radius: 50%; background: var(--good-soft); color: var(--good); display: grid; place-content: center; }
+.tick svg { width: 14px; height: 14px; }
+
+/* Kategorien */
+.cats { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 16px; }
+.cat { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: 15px; }
+.cat .v { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 14px; }
+.cat .bar { grid-column: 1 / -1; height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.cat .bar i { display: block; height: 100%; border-radius: 99px; }
+.tag { font-size: 11px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 1px 7px; margin-left: 6px; white-space: nowrap; }
+
+/* Vergleich als Raster, ohne seitliches Scrollen */
+.legend { list-style: none; display: grid; gap: 6px; margin-top: 12px; font-size: 14px; }
+.legend b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 12px; margin-right: 6px; }
+.legend a { color: var(--accent); font-weight: 600; }
+.compare { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.crow { display: grid; grid-template-columns: repeat(4, 1fr); padding: 12px 14px; border-top: 1px solid var(--line); gap: 6px; }
+.crow:first-child { border-top: 0; }
+.crow .feat { grid-column: 1 / -1; font-size: 14px; font-weight: 600; }
+.crow.head { background: var(--accent-soft); font-size: 12px; font-weight: 700; color: var(--muted); }
+.crow.head span:first-child { color: var(--accent); }
+.cell { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.feat + .cell { color: var(--ink); font-weight: 700; }
+.dot { width: 18px; height: 18px; border-radius: 50%; display: grid; place-content: center; flex: 0 0 auto; }
+.dot svg { width: 10px; height: 10px; }
+.dot.y { background: var(--good-soft); color: var(--good); }
+.dot.n { background: var(--bad-soft); color: var(--bad); }
+.dot.p { background: var(--warn-soft); color: var(--warn); }
+.cell .lbl { display: none; }
+
+/* Gewinn */
+.gains { display: grid; gap: 10px; }
+.gain { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.gain p { font-size: 15px; color: var(--muted); }
+
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+
+/* Feste Kontaktleiste auf dem Handy */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
+}
+.sticky a { display: block; text-align: center; text-decoration: none; background: var(--accent); color: #fff; font-weight: 700; border-radius: 12px; padding: 14px; }
+
+@media (min-width: 720px) {
+  body { padding-block: 32px 56px; }
+  .wrap { gap: 36px; }
+  .hero { padding: 36px; gap: 24px; }
+  .score { gap: 28px; }
+  .score-text p { font-size: 18px; max-width: 46ch; }
+  .ring { width: 150px; height: 150px; }
+  .ring .num strong { font-size: 52px; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .card { grid-template-columns: 1fr; align-content: start; }
+  .card div { align-content: start; }
+  .list, .gains { grid-template-columns: 1fr 1fr; }
+  .cat { grid-template-columns: 220px 1fr 70px; align-items: center; }
+  .cat .bar { grid-column: auto; grid-row: auto; }
+  .cat .v { text-align: right; }
+  .crow { grid-template-columns: 1.8fr repeat(4, 1fr); align-items: center; }
+  .crow .feat { grid-column: auto; }
+  .sticky { display: none; }
+  .cell { font-size: 0; gap: 0; }
+}
+@media (max-width: 719px) {
+  .crow.head .feat { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .toggle svg { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-top">
+      <span class="eyebrow">Webseiten-Check · 19.10.2026</span>
+      <h1>baumpflege-kambium.de</h1>
+      <p class="who">KAMBIUM Baumpflege &amp; Baumfällung, Wetter</p>
+    </div>
+    <div class="score">
+      <div class="ring" role="img" aria-label="46 von 100 Punkten">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="12"></circle>
+          <circle class="value" cx="60" cy="60" r="52" fill="none" stroke-width="12" stroke-dasharray="326.7" stroke-dashoffset="176.4"></circle>
+        </svg>
+        <div class="num"><strong>46</strong><span>von 100</span></div>
+      </div>
+      <div class="score-text">
+        <span class="badge">Ausbaufähig</span>
+        <p>Bei Google gut gefunden, aber am Handy mühsam und ohne Anfrage-Knopf verlieren Sie Aufträge an Mitbewerber.</p>
+      </div>
+    </div>
+    <div class="meter" aria-hidden="true">
+      <div class="meter-bar"><i></i><i></i><i></i><b></b></div>
+      <div class="meter-labels"><span>dringend</span><span>ausbaufähig</span><span>gut</span></div>
+    </div>
+  </header>
+
+  <section aria-label="Die wichtigsten Punkte">
+    <h2>Das sollten Sie wissen</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/></svg></span>
+        <div><h3>Am Handy mühsam</h3><p>Die Schrift liegt schwer lesbar auf einem unruhigen Foto, und jede Leistung füllt einen ganzen Bildschirm.</p></div>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
+        <div><h3>Platz 1 bei Google, aber stumm</h3><p>Ihr Suchergebnis hat keine eigene Beschreibung und nennt weder Leistungen noch Einsatzgebiet.</p></div>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg></span>
+        <div><h3>Wenig Anreiz zur Anfrage</h3><p>Kein deutlicher Anfrage-Knopf, keine Kundenstimmen, und der E-Mail-Link ist fehlerhaft.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt" aria-label="Kontakt">
+    <h2>Kostenloses Gespräch vereinbaren</h2>
+    <p>Ich zeige Ihnen in 15 Minuten, was eine neue Seite für Sie verbessern würde. Unverbindlich.</p>
+    <div class="contact-lines">
+      <div class="contact-line"><span>Name</span><b class="val">[Ihr Name]</b><span></span></div>
+      <div class="contact-line"><span>Telefon</span><b class="val" id="tel">[Ihre Telefonnummer]</b><button type="button" class="copy" data-copy="tel">Kopieren</button></div>
+      <div class="contact-line"><span>E-Mail</span><b class="val" id="mail">[Ihre E-Mail-Adresse]</b><button type="button" class="copy" data-copy="mail">Kopieren</button></div>
+    </div>
+  </section>
+
+  <button type="button" id="toggle-details" class="toggle" aria-expanded="false" aria-controls="details">
+    <span>Detailergebnis anzeigen</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+
+  <div id="details" class="details" hidden>
+    <section>
+      <h2>Das funktioniert schon</h2>
+      <ul class="list">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Klare Navigation:</b> drei Menüpunkte, jede der acht Leistungen mit eigener Seite.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Sichere Verbindung</b> über HTTPS.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Platz 1 bei Google</b> für „Baumpflege Wetter“.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Schnell am PC:</b> PageSpeed 99 von 100, am Handy 74.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Kontaktformular</b> und antippbare Telefonnummer.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Fachwissen:</b> „Wissenswertes“ erklärt Schnittfehler und Schutzzeiten.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Alle Bereiche</h2>
+      <div class="cats">
+        <div class="cat"><span>Bedienung am Handy</span><span class="bar"><i style="width:60%;background:var(--warn)"></i></span><span class="v">12 / 20</span></div>
+        <div class="cat"><span>Inhalte</span><span class="bar"><i style="width:50%;background:var(--warn)"></i></span><span class="v">10 / 20</span></div>
+        <div class="cat"><span>Design</span><span class="bar"><i style="width:25%;background:var(--bad)"></i></span><span class="v">3,8 / 15</span></div>
+        <div class="cat"><span>Google-Sichtbarkeit</span><span class="bar"><i style="width:38%;background:var(--bad)"></i></span><span class="v">3,8 / 10</span></div>
+        <div class="cat"><span>Ladezeit<span class="tag">teils geschätzt</span></span><span class="bar"><i style="width:83%;background:var(--good)"></i></span><span class="v">8,3 / 10</span></div>
+        <div class="cat"><span>Recht und Sicherheit</span><span class="bar"><i style="width:50%;background:var(--warn)"></i></span><span class="v">5 / 10</span></div>
+        <div class="cat"><span>Vergleich mit Mitbewerbern</span><span class="bar"><i style="width:0%;background:var(--bad)"></i></span><span class="v">0 / 10</span></div>
+        <div class="cat"><span>Technik</span><span class="bar"><i style="width:58%;background:var(--warn)"></i></span><span class="v">2,9 / 5</span></div>
+      </div>
+      <p class="muted" style="font-size:13px">Grün ab 70 %, Gelb ab 45 %, Rot darunter. „Geschätzt“ heißt: aus einer Sichtprüfung ohne Messgerät.</p>
+    </section>
+
+    <section>
+      <h2>Vergleich mit drei Betrieben aus der Region</h2>
+      <div class="compare" role="table" aria-label="Vergleich mit Mitbewerbern">
+        <div class="crow head" role="row"><span class="feat" role="columnheader">Merkmal</span><span role="columnheader">Sie</span><span role="columnheader">A</span><span role="columnheader">B</span><span role="columnheader">C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Fotos der eigenen Arbeit</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Kontaktformular</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Kundenstimmen</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Deutlicher Anfrage-Knopf</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Einsatzgebiet genannt</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot p" aria-label="teilweise"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 5h6"/></svg></i>B</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Beschreibung im Google-Suchergebnis</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+      </div>
+      <ul class="legend">
+        <li><b>A</b> <a href="https://www.baum-vogel.de/" target="_blank" rel="noopener">Baumpflege Vogel</a>, Witten</li>
+        <li><b>B</b> <a href="https://www.forest-nk.de/" target="_blank" rel="noopener">Forest N.K.</a>, Witten</li>
+        <li><b>C</b> <a href="https://www.baumservice-wolff.de/" target="_blank" rel="noopener">Baumservice Wolff</a>, Bochum</li>
+      </ul>
+      <p class="muted" style="font-size:13px">Stand: 19.10.2026. Geprüft wurden die öffentlich einsehbaren Webseiten.</p>
+    </section>
+
+    <section>
+      <h2>Was eine neue Webseite ändert</h2>
+      <div class="gains">
+        <div class="gain"><h3>Für mehr Suchen gefunden werden</h3><p>Jede Leistung mit Ort und Einsatzgebiet, etwa für „Baumfällung Wetter“ oder die Nachbarorte.</p></div>
+        <div class="gain"><h3>Vertrauen auf den ersten Blick</h3><p>Fotos Ihrer Einsätze, Kundenstimmen und Qualifikationen gut sichtbar.</p></div>
+        <div class="gain"><h3>Mehr Anfragen</h3><p>Ein Anfrage-Knopf auf jeder Seite, auf Wunsch mit WhatsApp.</p></div>
+        <div class="gain"><h3>Selbst pflegbar</h3><p>Texte und Bilder ändern Sie selbst, ohne Programmierkenntnisse.</p></div>
+      </div>
+    </section>
+
+    <p class="muted" style="font-size:14px">Weitere Punkte: Die Schriften werden ohne Einwilligung von Google-Servern geladen, wofür es bereits Abmahnungen gab. Am Handy lässt sich die Seite nicht vergrößern, einige Texte enthalten Tippfehler, und die Datenschutzerklärung nennt Dienste wie Google Maps, die auf der Seite nicht zu finden sind.</p>
+  </div>
+
+  <footer>
+    <p>Geprüft wurden die Startseite und fünf Unterseiten nach 33 Prüfpunkten. Ladezeit und Google-Platz sind gemessen, das Design ist per Fragebogen anhand von Screenshots bewertet.</p>
+    <p>Technische und gestalterische Einschätzung, keine Rechtsberatung.</p>
+  </footer>
+</div>
+
+<div class="sticky"><a href="#kontakt">Kostenloses Gespräch vereinbaren</a></div>
+
+<script>
+(function () {
+  var btn = document.getElementById('toggle-details');
+  var box = document.getElementById('details');
+  var label = btn.querySelector('span');
+  function setOpen(open) {
+    box.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    label.textContent = open ? 'Details ausblenden' : 'Detailergebnis anzeigen';
+  }
+  btn.addEventListener('click', function () {
+    var open = box.hidden;
+    setOpen(open);
+    if (open) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  if (location.hash === '#details') setOpen(true);
+
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      function done() { b.textContent = 'Kopiert'; setTimeout(function () { b.textContent = 'Kopieren'; }, 1600); }
+      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
