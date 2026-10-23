@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Webseiten-Check Red Perch</title>
+<style>
+/* Layout: mobil zuerst. Farbiger Ergebnis-Kopf mit Messring, drei Befund-Karten, Kontakt; Details aufklappbar; auf dem Handy eine feste Kontaktleiste unten */
+:root {
+  --bg: #eef2f1;
+  --surface: #ffffff;
+  --ink: #12211f;
+  --muted: #5a6866;
+  --line: #d9e1df;
+  --hero: #0e3b3a;
+  --hero-2: #145250;
+  --on-hero: #f1f7f5;
+  --accent: #0f7a6c;
+  --accent-soft: #dcefeb;
+  --score: #f2b33d;
+  --good: #23845a;
+  --warn: #b77812;
+  --bad: #c04a3c;
+  --good-soft: #e1f2e9;
+  --warn-soft: #fbefd8;
+  --bad-soft: #f9e3df;
+  --shadow: 0 1px 2px rgba(18, 33, 31, .06), 0 8px 24px rgba(18, 33, 31, .06);
+  --font-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Manrope", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0c1413; --surface: #152120; --ink: #e7f0ee; --muted: #9db0ac; --line: #263634;
+    --hero: #0f2f2e; --hero-2: #154442; --on-hero: #eef7f4; --accent: #4cc2ae; --accent-soft: #163a35;
+    --score: #f5c15e; --good: #63c690; --warn: #e6ae4f; --bad: #ef8a7c;
+    --good-soft: #15332a; --warn-soft: #3a2d14; --bad-soft: #3d201c; --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0c1413; --surface: #152120; --ink: #e7f0ee; --muted: #9db0ac; --line: #263634;
+  --hero: #0f2f2e; --hero-2: #154442; --on-hero: #eef7f4; --accent: #4cc2ae; --accent-soft: #163a35;
+  --score: #f5c15e; --good: #63c690; --warn: #e6ae4f; --bad: #ef8a7c;
+  --good-soft: #15332a; --warn-soft: #3a2d14; --bad-soft: #3d201c; --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 16px 104px;
+}
+.wrap { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.wrap > *, .details > * { min-width: 0; }
+h1, h2, h3 { font-family: var(--font-display); line-height: 1.12; text-wrap: balance; margin: 0; }
+h2 { font-size: 22px; font-weight: 800; }
+h3 { font-size: 17px; font-weight: 600; }
+p { margin: 0; }
+section { display: grid; gap: 14px; }
+.muted { color: var(--muted); }
+
+/* Ergebnis-Kopf */
+.hero {
+  background: radial-gradient(120% 90% at 100% 0%, var(--hero-2) 0%, var(--hero) 60%);
+  color: var(--on-hero); border-radius: 22px; padding: 24px 20px 26px; display: grid; gap: 20px;
+}
+.hero-top { display: grid; gap: 6px; }
+.eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .8; }
+.hero h1 { font-size: clamp(24px, 7vw, 40px); font-weight: 800; overflow-wrap: anywhere; }
+.hero .who { font-size: 15px; opacity: .85; }
+.score { display: flex; align-items: center; gap: 18px; }
+.ring { width: 112px; height: 112px; flex: 0 0 auto; position: relative; }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.ring .track { stroke: rgba(255, 255, 255, .16); }
+.ring .value { stroke: var(--score); stroke-linecap: round; }
+.ring .num { position: absolute; inset: 0; display: grid; place-content: center; text-align: center; line-height: 1; }
+.ring .num strong { font-family: var(--font-display); font-size: 40px; font-weight: 800; }
+.ring .num span { font-size: 12px; opacity: .8; margin-top: 4px; }
+.score-text { display: grid; gap: 8px; min-width: 0; }
+.badge { display: inline-block; width: fit-content; background: var(--score); color: #2a1d02; font-weight: 800; font-size: 13px; border-radius: 99px; padding: 4px 12px; }
+.score-text p { font-size: 16px; }
+.meter { display: grid; gap: 6px; }
+.meter-bar { position: relative; display: grid; grid-template-columns: 45fr 25fr 30fr; gap: 3px; height: 8px; }
+.meter-bar i { border-radius: 99px; }
+.meter-bar i:nth-child(1) { background: #e0796c; }
+.meter-bar i:nth-child(2) { background: #f2b33d; }
+.meter-bar i:nth-child(3) { background: #5cc08b; }
+.meter-bar b { position: absolute; top: -5px; left: 60%; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%; background: var(--on-hero); border: 4px solid #f2b33d; }
+.meter-labels { display: grid; grid-template-columns: 45fr 25fr 30fr; font-size: 12px; opacity: .8; }
+
+/* Befund-Karten */
+.cards { display: grid; gap: 12px; }
+.card { background: var(--surface); border-radius: 16px; padding: 16px; box-shadow: var(--shadow); border: 1px solid var(--line); display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: start; }
+.icon { width: 44px; height: 44px; border-radius: 12px; background: var(--bad-soft); color: var(--bad); display: grid; place-content: center; }
+.icon svg { width: 22px; height: 22px; }
+.card div { display: grid; gap: 4px; min-width: 0; }
+.card p { font-size: 15px; color: var(--muted); }
+
+/* Kontakt */
+.contact { background: var(--surface); border: 2px solid var(--accent); border-radius: 18px; padding: 20px; display: grid; gap: 14px; scroll-margin-top: 16px; }
+.contact p { color: var(--muted); }
+.contact-lines { display: grid; gap: 8px; }
+.contact-line { display: grid; grid-template-columns: 76px 1fr auto; gap: 10px; align-items: center; background: var(--accent-soft); border-radius: 12px; padding: 10px 12px; font-weight: 600; min-width: 0; }
+.contact-line span { font-size: 13px; font-weight: 500; color: var(--muted); }
+.contact-line .val { overflow-wrap: anywhere; }
+@media (max-width: 519px) {
+  .contact-line { grid-template-columns: minmax(0,1fr) auto; row-gap: 2px; }
+  .contact-line > span:first-child { grid-column: 1; grid-row: 1; }
+  .contact-line .val { grid-column: 1; grid-row: 2; overflow-wrap: normal; }
+  .contact-line .copy, .contact-line > span:last-child { grid-column: 2; grid-row: 1 / span 2; }
+}
+.copy { font: 600 13px var(--font-body); color: var(--accent); background: transparent; border: 1px solid var(--accent); border-radius: 8px; padding: 6px 10px; cursor: pointer; min-height: 34px; }
+
+/* Details-Knopf */
+.toggle { width: 100%; font: 700 16px var(--font-body); color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 15px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow); }
+.toggle svg { width: 20px; height: 20px; transition: transform .2s; }
+.toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.details { display: grid; gap: 28px; }
+.details[hidden] { display: none; }
+
+/* Stärken */
+.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.list li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font-size: 15px; }
+.tick { width: 26px; height: 26px; border-radius: 50%; background: var(--good-soft); color: var(--good); display: grid; place-content: center; }
+.tick svg { width: 14px; height: 14px; }
+
+/* Kategorien */
+.cats { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; display: grid; gap: 16px; }
+.cat { display: grid; grid-template-columns: 1fr auto; gap: 6px 12px; font-size: 15px; }
+.cat .v { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 14px; }
+.cat .bar { grid-column: 1 / -1; height: 10px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.cat .bar i { display: block; height: 100%; border-radius: 99px; }
+.tag { font-size: 11px; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 1px 7px; margin-left: 6px; white-space: nowrap; }
+
+/* Vergleich als Raster, ohne seitliches Scrollen */
+.legend { list-style: none; display: grid; gap: 6px; margin-top: 12px; font-size: 14px; }
+.legend b { display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); font-size: 12px; margin-right: 6px; }
+.legend a { color: var(--accent); font-weight: 600; }
+.compare { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+.crow { display: grid; grid-template-columns: repeat(4, 1fr); padding: 12px 14px; border-top: 1px solid var(--line); gap: 6px; }
+.crow:first-child { border-top: 0; }
+.crow .feat { grid-column: 1 / -1; font-size: 14px; font-weight: 600; }
+.crow.head { background: var(--accent-soft); font-size: 12px; font-weight: 700; color: var(--muted); }
+.crow.head span:first-child { color: var(--accent); }
+.cell { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.feat + .cell { color: var(--ink); font-weight: 700; }
+.dot { width: 18px; height: 18px; border-radius: 50%; display: grid; place-content: center; flex: 0 0 auto; }
+.dot svg { width: 10px; height: 10px; }
+.dot.y { background: var(--good-soft); color: var(--good); }
+.dot.n { background: var(--bad-soft); color: var(--bad); }
+.dot.p { background: var(--warn-soft); color: var(--warn); }
+.cell .lbl { display: none; }
+
+/* Gewinn */
+.gains { display: grid; gap: 10px; }
+.gain { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 4px; }
+.gain p { font-size: 15px; color: var(--muted); }
+
+.rivals { display: grid; gap: 10px; }
+.rival { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: center; }
+.rival.me { border: 2px solid var(--accent); }
+.rival h3 { font-size: 16px; }
+.rival a { color: var(--accent); }
+.rival .pts { font-family: var(--font-display); font-weight: 800; font-size: 22px; font-variant-numeric: tabular-nums; text-align: right; }
+.rival p { grid-column: 1 / -1; font-size: 14px; color: var(--muted); }
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
+
+/* Feste Kontaktleiste auf dem Handy */
+.sticky {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--line);
+}
+.sticky a { display: block; text-align: center; text-decoration: none; background: var(--accent); color: #fff; font-weight: 700; border-radius: 12px; padding: 14px; }
+
+@media (min-width: 720px) {
+  body { padding-block: 32px 56px; }
+  .wrap { gap: 36px; }
+  .hero { padding: 36px; gap: 24px; }
+  .score { gap: 28px; }
+  .score-text p { font-size: 18px; max-width: 46ch; }
+  .ring { width: 150px; height: 150px; }
+  .ring .num strong { font-size: 52px; }
+  .cards { grid-template-columns: repeat(3, 1fr); }
+  .card { grid-template-columns: 1fr; align-content: start; }
+  .card div { align-content: start; }
+  .list, .gains { grid-template-columns: 1fr 1fr; }
+  .cat { grid-template-columns: 220px 1fr 70px; align-items: center; }
+  .cat .bar { grid-column: auto; grid-row: auto; }
+  .cat .v { text-align: right; }
+  .crow { grid-template-columns: 1.8fr repeat(4, 1fr); align-items: center; }
+  .crow .feat { grid-column: auto; }
+  .sticky { display: none; }
+  .cell { font-size: 0; gap: 0; }
+}
+@media (max-width: 719px) {
+  .crow.head .feat { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .toggle svg { transition: none; } }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="hero-top">
+      <span class="eyebrow">Webseiten-Check · 23.10.2026</span>
+      <h1>red-perch.de</h1>
+      <p class="who">Red Perch Handmade Lures · Marius Palass · Online-Shop für Angelköder und Geschenke · Schwerin</p>
+    </div>
+    <div class="score">
+      <div class="ring" role="img" aria-label="57 von 100 Punkten">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="track" cx="60" cy="60" r="52" fill="none" stroke-width="12"></circle>
+          <circle class="value" cx="60" cy="60" r="52" fill="none" stroke-width="12" stroke-dasharray="326.7" stroke-dashoffset="140.5"></circle>
+        </svg>
+        <div class="num"><strong>57</strong><span>von 100</span></div>
+      </div>
+      <div class="score-text">
+        <span class="badge">Ausbaufähig</span>
+        <p>Starke Fotos und eine Marke mit Charakter, aber Google sieht davon wenig, und am Produkt fehlen Angaben, die Käufer vor dem Bestellen suchen.</p>
+      </div>
+    </div>
+    <div class="meter" aria-hidden="true">
+      <div class="meter-bar"><i></i><i></i><i></i><b style="left:57%"></b></div>
+      <div class="meter-labels"><span>dringend</span><span>ausbaufähig</span><span>gut</span></div>
+    </div>
+  </header>
+
+  <section aria-label="Die wichtigsten Punkte">
+    <h2>Das sollten Sie wissen</h2>
+    <div class="cards">
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+        <div><h3>Google sieht einen fremden Werbetext</h3><p>Als Beschreibung für Google steht auf fast allen Seiten der englische Werbetext Ihrer Design-Vorlage („The Multipurpose WordPress &amp; WooCommerce Theme …“). Die Startseite hat keine Hauptüberschrift, und ein Google-Unternehmensprofil fehlt.</p></div>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20.5" r="1"/><circle cx="17" cy="20.5" r="1"/></svg></span>
+        <div><h3>Am Produkt fehlen Kaufangaben</h3><p>Neben dem Preis steht weder „inkl. MwSt.“ noch Versandkosten oder Lieferzeit, und der Link „Versand und Rücksendung“ führt ins Leere. Bei den Unikaten für 28 bis 75 € fehlen Länge, Gewicht und Laufverhalten.</p></div>
+      </article>
+      <article class="card">
+        <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg></span>
+        <div><h3>Sehr langsam am Handy</h3><p>Das große Bild der Startseite erscheint am Handy laut Google-Messung erst nach über 30 Sekunden. Im ersten Bildschirm stehen „RED PERCH“, „Angler überraschen.“ und ein Köderfoto, aber kein Preis und kein Knopf zum Shop.</p></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt" aria-label="Kontakt">
+    <h2>Kostenloses Gespräch vereinbaren</h2>
+    <p>Ich zeige Ihnen in 15 Minuten, was eine überarbeitete Seite für Ihren Shop verbessern würde. Unverbindlich.</p>
+    <div class="contact-lines">
+      <div class="contact-line"><span>Name</span><b class="val">[Ihr Name]</b><span></span></div>
+      <div class="contact-line"><span>Telefon</span><b class="val" id="tel">[Ihre Telefonnummer]</b><button type="button" class="copy" data-copy="tel">Kopieren</button></div>
+      <div class="contact-line"><span>E-Mail</span><b class="val" id="mail">[Ihre E-Mail-Adresse]</b><button type="button" class="copy" data-copy="mail">Kopieren</button></div>
+    </div>
+  </section>
+
+  <button type="button" id="toggle-details" class="toggle" aria-expanded="false" aria-controls="details">
+    <span>Detailergebnis anzeigen</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+
+  <div id="details" class="details" hidden>
+    <section>
+      <h2>Das funktioniert schon</h2>
+      <ul class="list">
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Eigene, sehr gute Fotos:</b> Ihre Köder und die Verpackung sind scharf und stimmungsvoll fotografiert. Das ist mehr, als die meisten Shops zeigen.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Eine Marke mit Geschichte:</b> Die Über-Seite erzählt ehrlich, wie Red Perch entstanden ist, mit Ihrem Foto. Kunden kaufen bei einem Menschen.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Kundenstimmen:</b> 10 Empfehlungen von Facebook stehen auf den Produkt- und Geschenkeseiten, mit Namen und konkreten Ködern.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Guter Geschenke-Bereich:</b> Der Geschenke-Guide mit Käufertypen, 90 Tagen Geld-zurück-Garantie und Verpackung mit Wachssiegel hilft Nicht-Anglern beim Kaufen.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Funktionierender Shop:</b> Warenkorb, Kasse mit PayPal und Überweisung, Lagerbestand am Produkt und ein Kontaktformular.</span></li>
+        <li><span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></span><span><b>Sicher und selbst pflegbar:</b> HTTPS, aktuelles WordPress mit WooCommerce, Impressum, AGB, Widerrufsbelehrung und Datenschutzerklärung.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Alle Bereiche</h2>
+      <div class="cats">
+        <div class="cat"><span>Bedienung am Handy</span><span class="bar"><i style="width:50%;background:var(--warn)"></i></span><span class="v">7,5 / 15</span></div>
+        <div class="cat"><span>Inhalte</span><span class="bar"><i style="width:72%;background:var(--good)"></i></span><span class="v">14,4 / 20</span></div>
+        <div class="cat"><span>Design<span class="tag">per Sichtprüfung</span></span><span class="bar"><i style="width:75%;background:var(--good)"></i></span><span class="v">11,2 / 15</span></div>
+        <div class="cat"><span>Google-Sichtbarkeit</span><span class="bar"><i style="width:33%;background:var(--bad)"></i></span><span class="v">3,3 / 10</span></div>
+        <div class="cat"><span>Ladezeit am Handy</span><span class="bar"><i style="width:17%;background:var(--bad)"></i></span><span class="v">1,7 / 10</span></div>
+        <div class="cat"><span>Recht und Sicherheit</span><span class="bar"><i style="width:67%;background:var(--warn)"></i></span><span class="v">6,7 / 10</span></div>
+        <div class="cat"><span>Barrierefreiheit</span><span class="bar"><i style="width:58%;background:var(--warn)"></i></span><span class="v">5,8 / 10</span></div>
+        <div class="cat"><span>Vergleich mit Mitbewerbern</span><span class="bar"><i style="width:34%;background:var(--bad)"></i></span><span class="v">1,7 / 5</span></div>
+        <div class="cat"><span>Technik</span><span class="bar"><i style="width:84%;background:var(--good)"></i></span><span class="v">4,2 / 5</span></div>
+      </div>
+      <p class="muted" style="font-size:13px">Grün ab 70 %, Gelb ab 45 %, Rot darunter. Design und Inhalte sind per Sichtprüfung bewertet, das Design anhand von Bildschirmfotos. Für einen Online-Shop zählen bei „Inhalte“ Warenkorb, Produktangaben und Preisangaben statt Terminbuchung. Ladezeit, Technik und die meisten Werte zur Barrierefreiheit sind gemessen.</p>
+    </section>
+
+    <section>
+      <h2>Vergleich mit drei Shops für Angelköder</h2>
+      <p class="muted">Drei deutsche Online-Shops, die ebenfalls handgemachte Köder oder Geschenke für Angler verkaufen. WS Baits steht bei Google Maps für „handgemachte Angelköder kaufen“ ganz vorn.</p>
+      <div class="rivals">
+        <div class="rival me"><h3>Ihre Seite</h3><span class="pts">61</span><p>Bei Google Maps nicht unter den ersten 20 · kein Google-Profil gefunden</p></div>
+        <div class="rival"><h3><a href="https://fischers-gold.de/" target="_blank" rel="noopener">Fischers Gold</a></h3><span class="pts">57</span><p>Handgemachte Köder und Geschenke für Raubfischangler</p></div>
+        <div class="rival"><h3><a href="https://betterfishing.de/" target="_blank" rel="noopener">Better Fishing</a></h3><span class="pts">70</span><p>Köder-Boxen im Abo und als Geschenk</p></div>
+        <div class="rival"><h3><a href="https://ws-baits.com/" target="_blank" rel="noopener">WS Baits</a></h3><span class="pts">83</span><p>Platz 1 bei Google Maps · 4,5 Sterne, 34 Bewertungen</p></div>
+      </div>
+      <p class="muted" style="font-size:13px">Punkte aus der automatischen Prüfung von 95 möglichen (ohne den Vergleich selbst), für alle vier Seiten gleich gerechnet. Ihre 57 Punkte oben enthalten zusätzlich die Prüfung von Hand. Stand: 23.10.2026, öffentlich einsehbare Webseiten und Google Maps.</p>
+      <h3 style="margin:22px 0 10px">Was die drei auf ihrer Webseite zeigen</h3>
+      <div class="compare" role="table" aria-label="Vergleich mit Mitbewerbern">
+        <div class="crow head" role="row"><span class="feat" role="columnheader">Merkmal</span><span role="columnheader">Sie</span><span role="columnheader">A</span><span role="columnheader">B</span><span role="columnheader">C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Hauptüberschrift sagt, was es im Shop gibt</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Preis mit „inkl. MwSt.“ und Versandkosten-Hinweis</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Lieferzeit genannt</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot p" aria-label="teilweise"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 5h6"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Seite zu Versand und Versandkosten verlinkt</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">Kundenbewertungen im Shop sichtbar</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+        <div class="crow" role="row"><span class="feat" role="rowheader">E-Mail oder Telefon auf der Startseite</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>Sie</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>A</span><span class="cell" role="cell"><i class="dot y" aria-label="ja"><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 5.5l2.3 2.3L8.5 2.5"/></svg></i>B</span><span class="cell" role="cell"><i class="dot n" aria-label="nein"><svg viewBox="0 0 10 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 2l6 6M8 2L2 8"/></svg></i>C</span></div>
+      </div>
+      <ul class="legend">
+        <li><b>A</b> <a href="https://fischers-gold.de/" target="_blank" rel="noopener">Fischers Gold</a></li>
+        <li><b>B</b> <a href="https://betterfishing.de/" target="_blank" rel="noopener">Better Fishing</a></li>
+        <li><b>C</b> <a href="https://ws-baits.com/" target="_blank" rel="noopener">WS Baits</a></li>
+      </ul>
+      <p class="muted" style="font-size:13px">Grün = ja, Rot = nein, Gelb = teilweise (C nennt den Versandtermin der Vorbestellung statt einer Lieferzeit). Merkmale: Stand 23.10.2026, geprüft wurden Startseite, Fußzeile und je eine Produktseite.</p>
+    </section>
+
+    <section>
+      <h2>Was eine neue Startseite ändert</h2>
+      <div class="gains">
+        <div class="gain"><h3>Google weiß, was Sie verkaufen</h3><p>Eigene Beschreibung und Hauptüberschrift wie „Handgemachte Angelköder und Geschenke für Angler“, dazu ein Google-Profil für Ihre Bewertungen.</p></div>
+        <div class="gain"><h3>Kaufen ohne Rückfrage</h3><p>Preis mit MwSt., Versandkosten, Lieferzeit und Maße direkt am Produkt, eine echte Versandseite statt toter Links.</p></div>
+        <div class="gain"><h3>Produkte im ersten Bildschirm</h3><p>Ihre besten Köder mit Preis und einem Knopf „Zum Shop“ sofort sichtbar, die Geschenke einen Fingertipp entfernt.</p></div>
+        <div class="gain"><h3>Schnell am Handy</h3><p>Kleinere Bilder statt des schweren Bilder-Sliders, damit die Seite in wenigen Sekunden steht.</p></div>
+      </div>
+    </section>
+
+    <p class="muted" style="font-size:14px">Weitere Punkte: Auf der Kontaktseite steht seit November 2025 eine Kundenfrage nach den 14-cm-Rotaugen öffentlich und unbeantwortet im Kommentarfeld. Reste der Design-Vorlage sind sichtbar, etwa der Link „Passwort“, der auf die Demo-Seite des Vorlagen-Herstellers führt, drei Fußzeilen-Links ohne Ziel und englische Wörter wie „Privacy policy“, „Add to cart“ und „No results“. Das Menü führt zu einer anderen Geschenke-Seite als die Fußzeile. Kleine Tippfehler: „unsfassbares“ auf der Startseite, „unvergessliche Freunde“ auf den Produktseiten. Der Facebook-Pixel wird geladen, bevor Besucher im Cookie-Banner wählen, und Google Analytics wird vor der Einwilligung eingerichtet. Im Impressum fehlen Rechtsform und Registernummer, obwohl ein Geschäftsführer und das Amtsgericht genannt sind. Am Handy lässt sich die Seite nicht vergrößern.</p>
+  </div>
+
+  <footer>
+    <p>Geprüft wurden die Startseite, elf Unterseiten und zwei Produktseiten nach 36 Prüfpunkten. Ladezeit, Barrierefreiheit und Google-Platz sind gemessen, das Design ist per Fragebogen anhand von Bildschirmfotos bewertet.</p>
+    <p>Technische und gestalterische Einschätzung, keine Rechtsberatung. Ob Preisangaben oder Cookie-Einstellungen rechtlich genügen, klärt im Zweifel eine Rechtsberatung.</p>
+  </footer>
+</div>
+
+<div class="sticky"><a href="#kontakt">Kostenloses Gespräch vereinbaren</a></div>
+
+<script>
+(function () {
+  var btn = document.getElementById('toggle-details');
+  var box = document.getElementById('details');
+  var label = btn.querySelector('span');
+  function setOpen(open) {
+    box.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    label.textContent = open ? 'Details ausblenden' : 'Detailergebnis anzeigen';
+  }
+  btn.addEventListener('click', function () {
+    var open = box.hidden;
+    setOpen(open);
+    if (open) box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  if (location.hash === '#details') setOpen(true);
+
+  document.querySelectorAll('.copy').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      function done() { b.textContent = 'Kopiert'; setTimeout(function () { b.textContent = 'Kopieren'; }, 1600); }
+      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
