@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handgemachte Angelköder &amp; Geschenke für Angler | Red Perch – Entwurf</title>
+<meta name="description" content="Handgemachte Angelköder, realistische Gummifische und besondere Geschenke für Angler, in edler Verpackung mit Wachssiegel. Versand dienstags und donnerstags aus Schwerin.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@600;700&family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "OnlineStore",
+  "name": "Red Perch Handmade Lures",
+  "url": "https://red-perch.de/",
+  "email": "marius@red-perch.de",
+  "founder": {"@type": "Person", "name": "Marius Palass"},
+  "address": {"@type": "PostalAddress", "streetAddress": "Obotritenring 223", "postalCode": "19053", "addressLocality": "Schwerin", "addressCountry": "DE"},
+  "paymentAccepted": "PayPal, Überweisung",
+  "sameAs": ["https://www.instagram.com/red_perch/"]
+}
+</script>
+<style>
+:root {
+  --night: #101c27; --night-2: #172836; --ink: #15202b; --paper: #f4f1ec; --surface: #ffffff;
+  --muted: #5a6470; --line: #e2ddd5; --red: #b0182c; --red-2: #8f1022; --red-soft: #f7e3e5; --sand: #e9e2d6;
+  --on-night: #f2efe9; --on-night-muted: #b8c1c9;
+  --shadow: 0 1px 2px rgba(16,28,39,.06), 0 12px 32px rgba(16,28,39,.10);
+  --font-head: "Zilla Slab", Georgia, serif; --font-body: "Jost", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { background: var(--paper); color: var(--ink); font: 17px/1.6 var(--font-body); padding-bottom: 76px; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.1; }
+h2 { font-size: clamp(28px, 4.6vw, 42px); }
+h3 { font-size: 21px; }
+.eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--red); }
+.ph { background: #fff6dc; border: 1px dashed #c9a23a; color: #6b5200; border-radius: 6px; padding: 0 6px; font-size: .92em; }
+a:focus-visible, button:focus-visible { outline: 3px solid #f2b33d; outline-offset: 2px; }
+
+.concept { background: #000; color: #e9e9e9; font-size: 13px; text-align: center; padding: 8px 16px; }
+.concept b { color: #f2b33d; }
+
+header { position: sticky; top: 0; z-index: 20; background: rgba(16,28,39,.96); backdrop-filter: blur(10px); color: var(--on-night); }
+.head { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 66px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 19px var(--font-head); letter-spacing: .02em; }
+.logo img { height: 42px; width: 42px; }
+nav { display: none; gap: 26px; font-weight: 500; font-size: 16px; }
+nav a { text-decoration: none; color: var(--on-night-muted); }
+nav a:hover { color: #fff; }
+.cart { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 600; font-size: 15px; border: 1px solid rgba(255,255,255,.25); border-radius: 10px; padding: 9px 12px; min-height: 44px; }
+.cart svg { width: 20px; height: 20px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font: 600 17px var(--font-body); text-decoration: none; border-radius: 10px; padding: 14px 22px; min-height: 52px; border: 0; cursor: pointer; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-red { background: var(--red); color: #fff; }
+.btn-red:hover { background: var(--red-2); }
+.btn-ghost { background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.35); }
+.btn-dark { background: var(--night); color: #fff; }
+
+/* Startbild */
+.hero { position: relative; background: var(--night); color: var(--on-night); overflow: hidden; }
+.hero-img { width: 100%; height: 240px; object-fit: cover; object-position: 50% 50%; }
+.hero .wrap { position: relative; z-index: 1; padding: 26px 0 40px; display: grid; gap: 18px; }
+.hero h1 { font-size: clamp(34px, 8vw, 64px); max-width: 15ch; }
+.hero p.lead { font-size: 18px; color: var(--on-night); max-width: 40ch; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+.trust { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; font-size: 14px; color: var(--on-night-muted); margin-top: 8px; }
+.trust span { display: flex; gap: 8px; align-items: flex-start; }
+.trust svg { width: 18px; height: 18px; color: #f2b33d; flex: none; margin-top: 2px; }
+
+section { padding: 64px 0; }
+.sec-head { display: grid; gap: 10px; margin-bottom: 28px; max-width: 62ch; }
+.sec-head p { color: var(--muted); }
+
+/* Produkte */
+.products { display: grid; gap: 16px; }
+.prod { background: var(--surface); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); display: grid; grid-template-rows: auto 1fr; }
+.prod-img { aspect-ratio: 4 / 3; background: var(--night); overflow: hidden; }
+.prod-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.prod-body { padding: 18px; display: grid; gap: 8px; align-content: start; }
+.tagline { font-size: 13px; font-weight: 600; color: var(--red); text-transform: uppercase; letter-spacing: .08em; }
+.facts { display: flex; flex-wrap: wrap; gap: 6px; }
+.facts span { font-size: 13px; background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: 2px 10px; color: var(--muted); }
+.price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.price b { font: 700 26px var(--font-head); }
+.price s { color: var(--muted); }
+.price-note { font-size: 13px; color: var(--muted); }
+.prod .btn { width: 100%; margin-top: 8px; }
+.cats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.cats a { text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 99px; padding: 10px 16px; font-weight: 600; font-size: 15px; min-height: 44px; display: inline-flex; align-items: center; }
+
+/* Geschenke */
+.gift { background: var(--night); color: var(--on-night); }
+.gift .sec-head p { color: var(--on-night-muted); }
+.gift-grid { display: grid; gap: 22px; }
+.gift-photo { border-radius: 18px; overflow: hidden; aspect-ratio: 4 / 5; max-height: 560px; }
+.gift-photo img { width: 100%; height: 100%; object-fit: cover; }
+.gift-list { display: grid; gap: 12px; }
+.gift-item { display: grid; grid-template-columns: 40px 1fr; gap: 12px; background: var(--night-2); border-radius: 14px; padding: 14px; }
+.gift-item svg { width: 24px; height: 24px; color: #f2b33d; margin-top: 2px; }
+.gift-item p { color: var(--on-night-muted); font-size: 15px; }
+.ideas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 4px; }
+.idea { border-radius: 12px; overflow: hidden; background: var(--night-2); text-decoration: none; }
+.idea img { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.idea span { display: block; padding: 8px 10px; font-size: 13px; font-weight: 600; line-height: 1.3; }
+.code { display: inline-block; background: var(--red); color: #fff; font-weight: 600; border-radius: 10px; padding: 10px 14px; font-size: 15px; }
+
+/* Stimmen */
+.reviews { display: grid; gap: 14px; }
+.review { background: var(--surface); border-radius: 16px; padding: 20px; box-shadow: var(--shadow); display: grid; gap: 10px; }
+.stars { color: #c98a00; letter-spacing: 2px; font-size: 15px; }
+.review p { font-size: 16px; }
+.review cite { font-style: normal; font-size: 14px; color: var(--muted); }
+.source { font-size: 13px; color: var(--muted); margin-top: 14px; }
+
+/* Über */
+.about-grid { display: grid; gap: 26px; align-items: center; }
+.about-photo { border-radius: 18px; overflow: hidden; }
+.about-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.about-text { display: grid; gap: 14px; }
+.about-text p { color: var(--muted); }
+.quote { font: 600 24px/1.25 var(--font-head); color: var(--red); }
+
+/* Versand */
+.ship { background: var(--sand); }
+.ship-grid { display: grid; gap: 12px; }
+.ship-item { background: var(--surface); border-radius: 14px; padding: 18px; display: grid; gap: 6px; }
+.ship-item svg { width: 26px; height: 26px; color: var(--red); }
+.ship-item p { color: var(--muted); font-size: 15px; }
+
+footer { background: var(--night); color: var(--on-night-muted); padding: 44px 0 30px; font-size: 15px; }
+.foot { display: grid; gap: 22px; }
+footer h3 { color: #fff; font-size: 18px; margin-bottom: 6px; }
+footer a { color: var(--on-night); }
+.legal { display: flex; flex-wrap: wrap; gap: 8px 18px; border-top: 1px solid rgba(255,255,255,.12); padding-top: 18px; margin-top: 26px; font-size: 14px; }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px)); background: rgba(16,28,39,.96); }
+.bar .btn { min-height: 48px; padding: 10px; font-size: 16px; }
+
+@media (min-width: 640px) {
+  .products { grid-template-columns: repeat(2, 1fr); }
+  .reviews { grid-template-columns: repeat(3, 1fr); }
+  .ship-grid { grid-template-columns: repeat(2, 1fr); }
+  .trust { grid-template-columns: repeat(4, auto); justify-content: start; }
+}
+@media (min-width: 960px) {
+  body { padding-bottom: 0; }
+  nav { display: flex; }
+  .bar { display: none; }
+  .hero-img { position: absolute; inset: 0; height: 100%; object-position: 30% 50%; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(16,28,39,0) 20%, rgba(16,28,39,.88) 62%); }
+  .hero .wrap { padding: 150px 0 72px; grid-template-columns: 1fr 560px; justify-items: start; }
+  .hero .wrap > * { grid-column: 2; }
+  .products { grid-template-columns: repeat(3, 1fr); }
+  .gift-grid { grid-template-columns: 1fr 1.1fr; align-items: start; }
+  .about-grid { grid-template-columns: 1fr 1fr; }
+  .ship-grid { grid-template-columns: repeat(4, 1fr); }
+  .foot { grid-template-columns: 1.4fr 1fr 1fr; }
+  section { padding: 88px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="concept"><b>Entwurf</b> von [Ihr Name] für Red Perch · keine echte Seite · Fotos und Texte von red-perch.de, <span class="ph">[Platzhalter]</span> fehlen dort noch</div>
+
+<header>
+  <div class="wrap head">
+    <a class="logo" href="#"><img src="bilder/logo.png" alt="" width="42" height="42"><span>Red Perch</span></a>
+    <nav aria-label="Hauptmenü">
+      <a href="#koeder">Köder</a>
+      <a href="#geschenke">Geschenke für Angler</a>
+      <a href="#ueber">Über Red Perch</a>
+      <a href="#versand">Versand</a>
+    </nav>
+    <a class="cart" href="#koeder" aria-label="Warenkorb, 0 Artikel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/><circle cx="10" cy="20.5" r="1"/><circle cx="17" cy="20.5" r="1"/></svg>0,00 €</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" aria-label="Willkommen" style="padding:0">
+    <img class="hero-img" src="bilder/red-devil.jpg" alt="Roter handgemachter Wobbler auf nassem Stein, von Wassertropfen umgeben" fetchpriority="high">
+    <div class="wrap">
+      <span class="eyebrow" style="color:#f2b33d">Red Perch · Schwerin</span>
+      <h1>Handgemachte Angelköder und Geschenke für Angler</h1>
+      <p class="lead">Unikate aus über 22 Ländern und realistische Gummifische. In edler Verpackung, bereit zum Verschenken.</p>
+      <div class="hero-cta">
+        <a class="btn btn-red" href="#koeder">Köder entdecken</a>
+        <a class="btn btn-ghost" href="#geschenke">Geschenk finden</a>
+      </div>
+      <div class="trust">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Über 3000 Angler beliefert</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>90 Tage Geld zurück</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Versand Di. und Do. mit DHL</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>PayPal oder Überweisung</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="koeder">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Aus dem Shop</span>
+        <h2>Köder, die auffallen und fangen</h2>
+        <p>Jedes Unikat gibt es nur einmal. Die Gummifische sind den echten Futterfischen nachempfunden.</p>
+      </div>
+      <div class="products">
+        <article class="prod">
+          <div class="prod-img"><img src="bilder/kurenai.jpg" alt="Kurenai Kaede: grün-weißer Wobbler mit dunklen Flecken, in der Hand gehalten" loading="lazy"></div>
+          <div class="prod-body">
+            <span class="tagline">Unikat · Made in Japan</span>
+            <h3>紅楓 Kurenai Kaede</h3>
+            <div class="facts"><span>Handgemachtes Einzelstück</span><span>1 vorrätig</span><span class="ph">[Länge, Gewicht, Lauf]</span></div>
+            <div class="price"><b>28,00 €</b><s>56,00 €</s></div>
+            <p class="price-note">inkl. MwSt., zzgl. <span class="ph">[Versandkosten]</span> · Lieferzeit <span class="ph">[x Werktage]</span></p>
+            <a class="btn btn-dark" href="https://red-perch.de/product/kurenai-kaede/">In den Warenkorb</a>
+          </div>
+        </article>
+        <article class="prod">
+          <div class="prod-img"><img src="bilder/rotfeder.jpg" alt="Gummifisch Rotfeder mit orangen Flossen auf dunklem, nassem Untergrund" loading="lazy"></div>
+          <div class="prod-body">
+            <span class="tagline">Realistischer Gummifisch</span>
+            <h3>Medium Rotfeder</h3>
+            <div class="facts"><span>10,5 cm</span><span>1 Stück</span></div>
+            <div class="price"><b>3,38 €</b><s>4,50 €</s></div>
+            <p class="price-note">inkl. MwSt., zzgl. <span class="ph">[Versandkosten]</span> · Lieferzeit <span class="ph">[x Werktage]</span></p>
+            <a class="btn btn-dark" href="https://red-perch.de/product/kleine-rotfeder-10cm/">In den Warenkorb</a>
+          </div>
+        </article>
+        <article class="prod">
+          <div class="prod-img"><img src="bilder/bitterling.jpg" alt="Schwarm silbern glänzender Gummifische Bitterling" loading="lazy"></div>
+          <div class="prod-body">
+            <span class="tagline">Realistischer Gummifisch</span>
+            <h3>Echter Bitterling</h3>
+            <div class="facts"><span>7,5 cm</span><span>mit Fischschwanz</span></div>
+            <div class="price"><b><span class="ph">[Preis]</span></b></div>
+            <p class="price-note">inkl. MwSt., zzgl. <span class="ph">[Versandkosten]</span> · Lieferzeit <span class="ph">[x Werktage]</span></p>
+            <a class="btn btn-dark" href="https://red-perch.de/product-category/realistische-gummifische/">In den Warenkorb</a>
+          </div>
+        </article>
+      </div>
+      <div class="cats" aria-label="Kategorien">
+        <a href="https://red-perch.de/product-category/handgemachte-angelkoeder/">Handgemachte Unikate</a>
+        <a href="https://red-perch.de/product-category/realistische-gummifische/">Realistische Gummifische</a>
+        <a href="https://red-perch.de/product-category/handgemachte-angelmesser/">Handgemachte Messer</a>
+        <a href="https://red-perch.de/product-category/alle/">Alle 68 Produkte</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="gift" id="geschenke">
+    <div class="wrap gift-grid">
+      <div class="gift-photo"><img src="bilder/geschenkbox.jpg" alt="Schwarze Red-Perch-Geschenkbox mit rotem Wachssiegel" loading="lazy"></div>
+      <div>
+        <div class="sec-head">
+          <span class="eyebrow" style="color:#f2b33d">Geschenke für Angler</span>
+          <h2>Das Geschenk, über das er noch lange spricht</h2>
+          <p>Sie angeln nicht selbst? Kein Problem. In drei Minuten und ohne Anglerlatein zum passenden Geschenk.</p>
+        </div>
+        <div class="gift-list">
+          <div class="gift-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-2-4-6-4-6-1.5S9 8 12 8zm0 0c2-4 6-4 6-1.5S15 8 12 8z"/></svg><div><h3>Premium-Verpackung</h3><p>Jeder Köder kommt in einer eigenen Red-Perch-Verpackung mit Wachssiegel.</p></div></div>
+          <div class="gift-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg><div><h3>90 Tage Geld-zurück-Garantie</h3><p>Passt das Geschenk nicht, gibt es das Geld zurück.</p></div></div>
+          <div class="gift-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><div><h3>Für jeden Angler das Richtige</h3><p>Genießer, Wettkampfangler, Hecht- oder Barschfan: Der Geschenke-Guide hilft beim Aussuchen.</p></div></div>
+        </div>
+        <div class="ideas" style="margin-top:16px">
+          <a class="idea" href="https://red-perch.de/geschenke-fuer-angler-810/"><img src="bilder/dsc03234.jpg" alt="Japanisches Küchenmesser mit Holzgriff" loading="lazy"><span>Japanische Messer aus Handarbeit</span></a>
+          <a class="idea" href="https://red-perch.de/geschenke-fuer-angler-810/"><img src="bilder/dsc03393.jpg" alt="Taschenmesser mit rot-gelbem Holzgriff und Damast-Klinge" loading="lazy"><span>Taschenmesser aus Portugal</span></a>
+          <a class="idea" href="https://red-perch.de/geschenke-fuer-angler-810/"><img src="bilder/box-offen.jpg" alt="Geöffnete schwarze Geschenkbox mit rotem Füllmaterial" loading="lazy"><span>Premium-Köderbox</span></a>
+        </div>
+        <p style="margin-top:20px; display:flex; flex-wrap:wrap; gap:12px; align-items:center"><a class="btn btn-red" href="https://red-perch.de/geschenke-fuer-angler-810/">Zum Geschenke-Guide</a><span class="code">15 % Rabatt auf die erste Bestellung</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="stimmen">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Was Angler sagen</span>
+        <h2>Gekauft, gefischt, wiederbestellt</h2>
+      </div>
+      <div class="reviews">
+        <figure class="review"><p>„Der erste Fisch mit dem Ukelei Gummi war nach wenigen Würfen am Haken. Ich bin total begeistert und werde weiterhin hier einkaufen.“</p><cite>Sebastian D., auf Facebook</cite></figure>
+        <figure class="review"><p>„Exklusiv, fängig und der Preis stimmt auch. Immer wieder gerne.“</p><cite>Rudi S., auf Facebook</cite></figure>
+        <figure class="review"><p>„Gerade die Chatterbaits haben es mir angetan … Bestellvorgang ist easy und geliefert wird schnell.“</p><cite>Norbert W., auf Facebook</cite></figure>
+      </div>
+      <p class="source">Empfehlungen von Facebook, wie auf red-perch.de. Hier passen auch Ihre Google-Sterne hin: <span class="ph">[Google-Profil anlegen]</span></p>
+    </div>
+  </section>
+
+  <section id="ueber" style="padding-top:0">
+    <div class="wrap about-grid">
+      <div class="about-photo"><img src="bilder/marius.jpg" alt="Marius Palass im Boot mit einem großen Fisch" loading="lazy"></div>
+      <div class="about-text">
+        <span class="eyebrow">Über Red Perch</span>
+        <h2>Ruhe statt Hektik. Handarbeit statt Masse.</h2>
+        <p>Ich bin Marius und angle seit meiner Kindheit. Angeln ist für mich Rute, Schnur und ein Köder, der etwas Besonderes ist, nicht Drohne, Boot und Live-Technik. Deshalb suche ich seit Jahren seltene, handgemachte Köder aus aller Welt und verschicke sie aus Schwerin.</p>
+        <p class="quote">„Wir glauben, dass Einzigartigkeit und Angeln zusammengehören.“</p>
+        <p><a href="https://red-perch.de/about-us/">Die ganze Geschichte lesen</a> · <a href="https://www.instagram.com/red_perch/">Red Perch auf Instagram</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ship" id="versand">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Versand und Bezahlung</span>
+        <h2>Bestellen ohne Fragezeichen</h2>
+      </div>
+      <div class="ship-grid">
+        <div class="ship-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg><h3>Versand mit DHL</h3><p>Jeden Dienstag und Donnerstag. Versandkosten <span class="ph">[x,xx €, frei ab x €]</span>.</p></div>
+        <div class="ship-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Lieferzeit</h3><p><span class="ph">[x bis x Werktage]</span> innerhalb Deutschlands.</p></div>
+        <div class="ship-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg><h3>Bezahlung</h3><p>PayPal oder Überweisung.</p></div>
+        <div class="ship-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H5.2L4 17.2z"/><path d="M8 9h8M8 12h5"/></svg><h3>Fragen?</h3><p>Schreiben Sie an <a href="mailto:marius@red-perch.de">marius@red-perch.de</a> oder nutzen Sie das Kontaktformular.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3>Red Perch Handmade Lures</h3>
+        <p>Marius Palass<br>Obotritenring 223, 19053 Schwerin<br><a href="mailto:marius@red-perch.de">marius@red-perch.de</a></p>
+      </div>
+      <div>
+        <h3>Shop</h3>
+        <p><a href="https://red-perch.de/product-category/alle/">Alle Produkte</a><br><a href="https://red-perch.de/geschenke-fuer-angler-810/">Geschenke für Angler</a><br><a href="https://red-perch.de/contact/">Kontakt</a></p>
+      </div>
+      <div>
+        <h3>Service</h3>
+        <p><a href="#versand">Versand und Zahlung</a><br><a href="https://red-perch.de/refund_returns/">Widerruf und Rückgabe</a><br><a href="https://red-perch.de/my-account/">Mein Konto</a></p>
+      </div>
+    </div>
+    <div class="legal"><a href="https://red-perch.de/impressum/">Impressum</a><a href="https://red-perch.de/agb/">AGB</a><a href="https://red-perch.de/privacy-policy/">Datenschutz</a><span>© 2026 Red Perch</span></div>
+  </div>
+</footer>
+
+<div class="bar">
+  <a class="btn btn-red" href="#koeder">Köder ansehen</a>
+  <a class="btn btn-ghost" href="#geschenke">Geschenke</a>
+</div>
+
+</body>
+</html>
