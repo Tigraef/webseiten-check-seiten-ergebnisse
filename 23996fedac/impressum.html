@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Testversion</title>
+<style>
+body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f8faf8; color: #1d2b28; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { box-sizing: border-box; width: min(100% - 32px, 420px); background: #fff; border: 1px solid #e0e8e4; border-radius: 18px; padding: 28px 24px; box-shadow: 0 24px 50px -30px rgba(30,60,52,.28); }
+h1 { font-size: 22px; margin: 0 0 8px; }
+p { margin: 0 0 18px; color: #5b6d68; }
+label { display: block; font-weight: 600; margin-bottom: 6px; }
+input { box-sizing: border-box; width: 100%; font: inherit; padding: 12px 14px; border: 1px solid #cfdad5; border-radius: 10px; }
+input:focus-visible, button:focus-visible { outline: 3px solid #3f7f70; outline-offset: 2px; }
+button { margin-top: 14px; width: 100%; min-height: 48px; font: 600 17px system-ui, sans-serif; color: #fff; background: #3f7f70; border: 0; border-radius: 999px; cursor: pointer; }
+#fehler { color: #9a4b3e; margin: 12px 0 0; min-height: 1.5em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Testversion</h1>
+  <p>Diese Seite ist noch nicht öffentlich. Bitte geben Sie das Passwort ein.</p>
+  <form id="f">
+    <label for="pw">Passwort</label>
+    <input id="pw" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+    <button type="submit">Öffnen</button>
+    <p id="fehler" role="alert"></p>
+  </form>
+</main>
+<script>
+var DATEN = "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";
+function b64(s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); }
+async function oeffnen(pw, anker) {
+  var roh = b64(DATEN), salz = roh.slice(0, 16), iv = roh.slice(16, 28), inhalt = roh.slice(28);
+  var basis = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  var schluessel = await crypto.subtle.deriveKey({ name: "PBKDF2", salt: salz, iterations: 250000, hash: "SHA-256" }, basis, { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  var klar = await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, schluessel, inhalt);
+  try { sessionStorage.setItem("tim-pw", pw); } catch (e) {}
+  history.replaceState(null, "", location.pathname + location.search + (anker ? "#" + anker : ""));
+  document.open(); document.write(new TextDecoder().decode(klar)); document.close();
+  if (anker) setTimeout(function () { var z = document.getElementById(anker); if (z) z.scrollIntoView(); }, 50);
+}
+document.getElementById("f").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var fehler = document.getElementById("fehler");
+  fehler.textContent = "";
+  oeffnen(document.getElementById("pw").value.trim(), "").catch(function () { fehler.textContent = "Das Passwort stimmt nicht. Bitte Groß- und Kleinschreibung prüfen."; });
+});
+(function () {
+  var h = location.hash ? decodeURIComponent(location.hash.slice(1)) : "", gespeichert = "";
+  try { gespeichert = sessionStorage.getItem("tim-pw") || ""; } catch (e) {}
+  if (h) oeffnen(h, "").catch(function () { if (gespeichert) oeffnen(gespeichert, h).catch(function () {}); });
+  else if (gespeichert) oeffnen(gespeichert, "").catch(function () {});
+})();
+</script>
+</body>
+</html>
