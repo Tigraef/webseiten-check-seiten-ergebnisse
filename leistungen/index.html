@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Leistungen und Preise</title>
+<style>
+/* Schriften liegen lokal in fonts/, es wird nichts von fremden Servern geladen. */
+@font-face { font-family: "Bricolage Grotesque"; src: url("fonts/bricolage.woff2") format("woff2"); font-weight: 200 800; font-stretch: 75% 100%; font-display: swap; }
+@font-face { font-family: "Figtree"; src: url("fonts/figtree.woff2") format("woff2"); font-weight: 300 900; font-display: swap; }
+:root {
+  --bg: #f8faf8; --surface: #ffffff; --fg: #1d2b28; --muted: #5b6d68; --line: #e0e8e4;
+  --band: #eaf2ee; --accent: #3f7f70; --accent-ink: #ffffff; --chip: #eef5f1;
+  --shadow: 0 24px 50px -30px rgba(30, 60, 52, 0.28);
+  --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --body: "Figtree", "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111a18; --surface: #17231f; --fg: #e4ece9; --muted: #a2b4ae; --line: #26372f;
+    --band: #182924; --accent: #86c3b2; --accent-ink: #0f1a17; --chip: #1b2c27;
+    --shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.6); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111a18; --surface: #17231f; --fg: #e4ece9; --muted: #a2b4ae; --line: #26372f;
+  --band: #182924; --accent: #86c3b2; --accent-ink: #0f1a17; --chip: #1b2c27;
+  --shadow: 0 24px 50px -30px rgba(0, 0, 0, 0.6); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; border-radius: 6px; }
+.wrap { width: min(100% - 32px, 980px); margin: 0 auto; }
+header { background: var(--band); padding: 56px 0 40px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.2; margin: 0; }
+h1 { font-size: clamp(32px, 6vw, 48px); font-weight: 700; letter-spacing: -0.01em; }
+.lead { margin: 14px 0 0; max-width: 40em; color: var(--muted); font-size: 18px; }
+nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+nav a { text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+nav a:hover { border-color: var(--accent); }
+main { padding: 16px 0 56px; }
+section { padding-top: 40px; scroll-margin-top: 16px; }
+h2 { font-size: 26px; font-weight: 650; margin-bottom: 16px; }
+.notiz { margin: -6px 0 16px; color: var(--muted); font-size: 15px; }
+.karten { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.karte { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); }
+.karte h3 { font-size: 20px; }
+.karte .preis { margin: 6px 0 10px; }
+.karte p { margin: 0; color: var(--muted); font-size: 16px; }
+.karte .preis, .liste .preis { color: var(--fg); font-weight: 700; font-variant-numeric: tabular-nums; }
+.liste { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden; }
+.liste li { display: flex; gap: 24px; justify-content: space-between; align-items: baseline; padding: 16px 20px; border-top: 1px solid var(--line); }
+.liste li:first-child { border-top: 0; }
+.liste h3 { font-size: 17px; font-weight: 650; font-family: var(--body); }
+.liste li p { margin: 2px 0 0; color: var(--muted); font-size: 15.5px; }
+.liste .preis { flex: 0 0 auto; max-width: 15em; text-align: right; margin: 0; font-size: 16px; }
+@media (max-width: 640px) {
+  .liste li { flex-direction: column; gap: 4px; }
+  .liste .preis { text-align: left; max-width: none; }
+}
+footer { border-top: 1px solid var(--line); padding: 24px 0 40px; color: var(--muted); font-size: 15px; }
+footer p { margin: 0 0 8px; max-width: 46em; }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Leistungen und Preise</h1>
+    <p class="lead">Alles, was Sie bei uns buchen können: von der neuen Webseite über die laufende Betreuung bis zu Google, Fotos und Recht. Sie liefern den Input, wir kümmern uns um den Rest.</p>
+    <nav aria-label="Bereiche"><a href="#einstieg-und-pakete">Einstieg und Pakete</a><a href="#laufende-betreuung">Laufende Betreuung</a><a href="#umzug-domain-und-e-mail">Umzug, Domain und E-Mail</a><a href="#inhalte-seiten-und-fotos">Inhalte, Seiten und Fotos</a><a href="#funktionen-auf-der-seite">Funktionen auf der Seite</a><a href="#google-sichtbarkeit-und-bewertungen">Google, Sichtbarkeit und Bewertungen</a><a href="#recht-sicherheit-und-barrierefreiheit">Recht, Sicherheit und Barrierefreiheit</a><a href="#marke-social-media-und-schulung">Marke, Social Media und Schulung</a></nav>
+  </div>
+</header>
+<main class="wrap">
+<section id="einstieg-und-pakete"><h2>Einstieg und Pakete</h2><div class="karten"><article class="karte"><h3>Webseiten-Check</h3><p class="preis">kostenlos</p><p>Ergebnisseite mit Ampel, 36 Prüfpunkten und Vergleich mit 3 Mitbewerbern</p></article><article class="karte"><h3>Entwurf Startseite</h3><p class="preis">kostenlos</p><p>Beispiel-Startseite aus vorhandenen Texten und Fotos, als Link und PDF</p></article><article class="karte"><h3>Start</h3><p class="preis">490 €</p><p>Onepager mit Leistungen, Kontakt, Karte, Öffnungszeiten, eine Korrekturrunde</p></article><article class="karte"><h3>Betrieb</h3><p class="preis">890 € oder 2 × 445 €</p><p>Bis 5 Seiten, Texte von uns, Google-Profil, lokale SEO-Grundlagen, zwei Korrekturrunden</p></article><article class="karte"><h3>Plus</h3><p class="preis">1.390 €</p><p>Bis 10 Seiten, Galerie oder Projekte, Anfrageformular, Übernahme alter Inhalte, Einweisung</p></article><article class="karte"><h3>Sorglos Betrieb</h3><p class="preis">1.090 € + 59 €/Monat</p><p>Wie Betrieb, plus Komplettumzug, Kündigung beim alten Anbieter, Rechtstext-Dienst eingerichtet, Fotorechte geprüft, Bewertungs-Link, Übergabe-Mappe; Zahlung erst nach Go-live</p></article><article class="karte"><h3>Sorglos Plus</h3><p class="preis">1.490 € + 59 €/Monat</p><p>Wie Sorglos Betrieb mit bis 10 Seiten, dazu Einträge im Netz umgestellt und Lektorat; Zahlung erst nach Go-live</p></article><article class="karte"><h3>Einzelreparatur</h3><p class="preis">ab 150 €</p><p>Nur die größten Fehler der alten Seite beheben (z. B. Telefon-Knopf, Ladezeit), ohne Neubau</p></article><article class="karte"><h3>Landingpage</h3><p class="preis">290 €</p><p>Einzelne Seite für eine Aktion, Stellenanzeige oder Kampagne, neben der bestehenden Webseite</p></article><article class="karte"><h3>Referenz-Bonus</h3><p class="preis">177 € Wert</p><p>Erste 3 Monate Betreuung gratis gegen Erlaubnis, Seite und Zitat zu zeigen (statt Preisnachlass)</p></article></div></section>
+<section id="laufende-betreuung"><h2>Laufende Betreuung</h2><ul class="liste"><li><div><h3>Pflege Basis</h3><p>Hosting, Domain, Updates, Sicherungen, Erreichbarkeit prüfen</p></div><p class="preis">29 €/Monat</p></li><li><div><h3>Pflege Plus</h3><p>Wie Basis, plus 30 Minuten Änderungen pro Monat</p></div><p class="preis">49 €/Monat</p></li><li><div><h3>Sorglos-Betreuung</h3><p>Wie Pflege Plus, plus bis 5 E-Mail-Postfächer, Änderungen per WhatsApp in 2 Werktagen, Nachfrage von uns vor Feiertagen und Betriebsferien, Jahres-Check</p></div><p class="preis">59 €/Monat</p></li><li><div><h3>Änderungen nach Aufwand</h3><p>Abrechnung in 15-Minuten-Schritten</p></div><p class="preis">55 €/Stunde</p></li><li><div><h3>Stundenkontingent</h3><p>5 Stunden im Voraus, ein Jahr gültig</p></div><p class="preis">250 €</p></li><li><div><h3>Express-Änderung</h3><p>Umsetzung am selben Werktag</p></div><p class="preis">+50 %</p></li><li><div><h3>Jahres-Check</h3><p>Webseiten-Check mit 3 Verbesserungsvorschlägen, einmal im Jahr</p></div><p class="preis">in Sorglos enthalten, sonst 49 €</p></li><li><div><h3>Monatsbericht</h3><p>Besucher, Anrufe aus Google, Anfragen, eine Seite als PDF</p></div><p class="preis">15 €/Monat</p></li><li><div><h3>Saisonpflege</h3><p>Feste Termine für wiederkehrende Änderungen (Speisekarte, Betriebsferien, Weihnachtszeiten)</p></div><p class="preis">19 €/Monat</p></li><li><div><h3>Relaunch-Bonus</h3><p>Nach 4 Jahren Betreuung neue Gestaltung zum halben Preis</p></div><p class="preis">−50 %</p></li></ul></section>
+<section id="umzug-domain-und-e-mail"><h2>Umzug, Domain und E-Mail</h2><ul class="liste"><li><div><h3>Komplettumzug</h3><p>Domain, Hosting, SSL, Weiterleitungen, Kontakt mit altem Anbieter, Kündigung vorbereitet</p></div><p class="preis">200 € (in Sorglos enthalten)</p></li><li><div><h3>E-Mail-Umzug</h3><p>Postfächer mit allen alten Mails zum neuen Anbieter, ohne Ausfall</p></div><p class="preis">25 € je Postfach</p></li><li><div><h3>Geräte einrichten</h3><p>Mail auf Handys und PCs des Betriebs umstellen, vor Ort oder per Fernwartung</p></div><p class="preis">55 €/Stunde</p></li><li><div><h3>Zusätzliches Postfach</h3><p>Weiteres Postfach über die enthaltenen hinaus</p></div><p class="preis">3 €/Monat</p></li><li><div><h3>Zusätzliche Domain</h3><p>Z. B. Schreibweise ohne Bindestrich oder .com, leitet auf die Hauptseite</p></div><p class="preis">2 €/Monat</p></li><li><div><h3>Domain-Rettung</h3><p>Domain zurückholen, wenn sie auf den alten Anbieter eingetragen ist</p></div><p class="preis">nach Aufwand</p></li><li><div><h3>Professionelle E-Mail-Signatur</h3><p>Einheitliche Signatur mit Logo für alle Mitarbeiter</p></div><p class="preis">49 €</p></li></ul></section>
+<section id="inhalte-seiten-und-fotos"><h2>Inhalte, Seiten und Fotos</h2><ul class="liste"><li><div><h3>Zusatzseite</h3><p>Eine weitere Seite über den Paketumfang hinaus, mit Text</p></div><p class="preis">120 €</p></li><li><div><h3>Leistungsseite für Google</h3><p>Eigene Seite pro Leistung und Ort (z. B. „Badsanierung Gevelsberg“)</p></div><p class="preis">120 € je Seite</p></li><li><div><h3>Referenzprojekt</h3><p>Projekt mit Fotos, Ort und kurzer Beschreibung einpflegen</p></div><p class="preis">49 € je Projekt</p></li><li><div><h3>Karriereseite</h3><p>Stellenseite mit Vorteilen, Ansprechpartner und Bewerbung per Handy</p></div><p class="preis">190 €</p></li><li><div><h3>Stellenanzeige</h3><p>Einzelne Anzeige auf der Karriereseite anlegen und bei Google-Jobs auffindbar machen</p></div><p class="preis">49 € je Stelle</p></li><li><div><h3>Zweite Sprache</h3><p>Ganze Seite zusätzlich auf Englisch (oder andere Sprache)</p></div><p class="preis">+40 % auf den Paketpreis</p></li><li><div><h3>Neuigkeiten</h3><p>Bereich für Aktuelles, wir schreiben die Beiträge aus Stichpunkten</p></div><p class="preis">39 € je Beitrag</p></li><li><div><h3>Fotoliste und Anleitung</h3><p>Liste mit 10 Motiven und Tipps für gute Handyfotos</p></div><p class="preis">kostenlos</p></li><li><div><h3>Fotoshooting vor Ort</h3><p>Halber Tag mit Partner-Fotograf; wir briefen und bauen ein, Abrechnung direkt mit dem Fotografen</p></div><p class="preis">Preis des Fotografen + 49 € Koordination</p></li><li><div><h3>Lektorat</h3><p>Alle Texte von einer Partner-Lektorin geprüft</p></div><p class="preis">in Plus und Sorglos enthalten, sonst ab 49 €</p></li><li><div><h3>Drohnenfotos</h3><p>Luftaufnahmen von Betrieb oder Projekten (nur mit Partner und Genehmigung)</p></div><p class="preis">auf Anfrage</p></li><li><div><h3>Kurzvideo</h3><p>30–60 Sekunden Imagefilm oder Betriebsvorstellung für Startseite und Social Media</p></div><p class="preis">ab 490 €</p></li><li><div><h3>Bildbearbeitung</h3><p>Vorhandene Fotos zuschneiden, aufhellen, für schnelles Laden verkleinern</p></div><p class="preis">in Paketen enthalten</p></li></ul></section>
+<section id="funktionen-auf-der-seite"><h2>Funktionen auf der Seite</h2><ul class="liste"><li><div><h3>Anruf-Knopf und mobile Aktionsleiste</h3><p>Telefon, WhatsApp und Anfrage immer unten am Handy sichtbar</p></div><p class="preis">in allen Paketen</p></li><li><div><h3>Anfrageformular mit Auswahl</h3><p>Formular mit Leistungsauswahl, Pflichtfeldern und Bestätigungsmail</p></div><p class="preis">in Plus enthalten, sonst 90 €</p></li><li><div><h3>Foto-Upload im Formular</h3><p>Kunde schickt Fotos vom Schaden oder Projekt direkt mit</p></div><p class="preis">90 €</p></li><li><div><h3>Terminbuchung</h3><p>Online-Termine mit Kalender, Erinnerung per Mail</p></div><p class="preis">150 € + ggf. Kosten des Tools</p></li><li><div><h3>Tischreservierung</h3><p>Reservierungsanfrage oder Anbindung an ein Reservierungssystem</p></div><p class="preis">150 €</p></li><li><div><h3>Speisekarte</h3><p>Speisekarte als Seite statt PDF, einfach änderbar</p></div><p class="preis">120 €</p></li><li><div><h3>WhatsApp-Knopf</h3><p>Direkter Chat-Start mit dem Betrieb</p></div><p class="preis">29 €</p></li><li><div><h3>Karte ohne Cookie-Banner</h3><p>Anfahrtskarte, die erst nach Klick lädt</p></div><p class="preis">in Paketen enthalten</p></li><li><div><h3>Google-Bewertungen anzeigen</h3><p>Sterne und ausgewählte Kundenstimmen auf der Startseite</p></div><p class="preis">49 €</p></li><li><div><h3>Download-Bereich</h3><p>Prospekte, Datenblätter, Zertifikate als PDF</p></div><p class="preis">49 €</p></li><li><div><h3>Online-Bewerbung</h3><p>Kurzbewerbung am Handy in 2 Minuten, ohne Anschreiben</p></div><p class="preis">120 €</p></li><li><div><h3>Gutscheinverkauf</h3><p>Gutscheine online bestellen (Gastronomie, Friseur)</p></div><p class="preis">auf Anfrage</p></li><li><div><h3>Kleiner Shop</h3><p>Bis 20 Produkte mit Zahlung</p></div><p class="preis">auf Anfrage</p></li><li><div><h3>QR-Aufsteller aus dem 3D-Drucker</h3><p>Tisch- oder Tresenaufsteller in Hausfarben mit QR-Code zur Speisekarte, Webseite oder Google-Bewertung; Druck durch uns</p></div><p class="preis">49 € Gestaltung + ca. 15 € je Aufsteller</p></li></ul></section>
+<section id="google-sichtbarkeit-und-bewertungen"><h2>Google, Sichtbarkeit und Bewertungen</h2><ul class="liste"><li><div><h3>Google-Unternehmensprofil</h3><p>Einrichten oder überarbeiten: Kategorien, Leistungen, Fotos, Öffnungszeiten</p></div><p class="preis">in Betrieb und Plus, sonst 149 €</p></li><li><div><h3>Lokale SEO-Grundlagen</h3><p>Ort und Leistungen in Titeln und Texten, Firmendaten für Google, schnelle Ladezeit</p></div><p class="preis">in Betrieb und Plus</p></li><li><div><h3>Search Console einrichten</h3><p>Seite bei Google anmelden, Sitemap einreichen, Fehler beobachten</p></div><p class="preis">in Paketen enthalten</p></li><li><div><h3>Bewertungen sammeln</h3><p>QR-Karte und 3D-gedruckter Aufsteller für den Tresen, Link für Rechnung und WhatsApp; Link und QR-Karte in Sorglos enthalten</p></div><p class="preis">79 €</p></li><li><div><h3>Bewertungen beantworten</h3><p>Antworten auf Google-Bewertungen formulieren, monatlich</p></div><p class="preis">19 €/Monat</p></li><li><div><h3>Google-Profil pflegen</h3><p>Ein Beitrag und neue Fotos pro Monat im Unternehmensprofil</p></div><p class="preis">29 €/Monat</p></li><li><div><h3>Branchenverzeichnisse</h3><p>Einheitliche Einträge in 10 wichtigen Verzeichnissen (z. B. Gelbe Seiten, Das Örtliche, Apple Karten, Bing) und Social-Media-Profile auf die neue Seite umgestellt; in Sorglos Plus enthalten</p></div><p class="preis">99 €</p></li><li><div><h3>Google-Anzeigen</h3><p>Kampagne einrichten, Budget zahlt der Kunde direkt an Google</p></div><p class="preis">190 € + 49 €/Monat Betreuung</p></li><li><div><h3>Mitbewerber-Beobachtung</h3><p>Halbjährlich: Wo stehen Sie bei Google gegenüber 3 Mitbewerbern?</p></div><p class="preis">49 €</p></li></ul></section>
+<section id="recht-sicherheit-und-barrierefreiheit"><h2>Recht, Sicherheit und Barrierefreiheit</h2><p class="notiz">Keine Rechtsberatung: Wir binden ein und bauen datensparsam, die Rechtstexte selbst kommen vom Kunden oder einem Rechtstext-Dienst.</p><ul class="liste"><li><div><h3>Impressum und Datenschutz einbinden</h3><p>Texte des Kunden sauber eingebunden und von jeder Seite erreichbar</p></div><p class="preis">in allen Paketen</p></li><li><div><h3>Ohne Cookie-Banner</h3><p>Seite sammelt nichts, deshalb ist kein Banner nötig</p></div><p class="preis">in allen Paketen</p></li><li><div><h3>Rechtstext-Dienst</h3><p>Abo bei einem Anbieter, der Impressum und Datenschutz automatisch aktuell hält; wir richten ein und binden ein, in allen Sorglos-Paketen; Abo läuft auf den Betrieb</p></div><p class="preis">Kosten durchgereicht + 5 €/Monat</p></li><li><div><h3>AV-Vertrag</h3><p>Vertrag zur Auftragsverarbeitung für Hosting, Mail und Formulare</p></div><p class="preis">kostenlos, Pflicht bei Betreuung</p></li><li><div><h3>Barrierefreiheits-Check</h3><p>Prüfung auf Kontrast, Schriftgröße, Bedienbarkeit, mit Bericht</p></div><p class="preis">149 €</p></li><li><div><h3>Sicherheits-Check alte Seite</h3><p>Veraltete Plugins, fehlende Updates, offene Logins prüfen</p></div><p class="preis">99 €</p></li><li><div><h3>Notfallhilfe</h3><p>Gehackte oder ausgefallene Seite wieder herstellen</p></div><p class="preis">55 €/Stunde, in Betreuung Vorrang</p></li><li><div><h3>Fotorechte prüfen</h3><p>Bilder der alten Seite auf Lizenz prüfen (oft Stockfotos des alten Anbieters)</p></div><p class="preis">in Sorglos enthalten, sonst 49 €</p></li><li><div><h3>Übergabe-Mappe</h3><p>Ein Blatt mit Domain, Hoster, Postfächern und Notfallkontakt</p></div><p class="preis">in Sorglos enthalten</p></li><li><div><h3>Barrierearm als Standard</h3><p>Kontrast, Schriftgröße und Bedienbarkeit von Anfang an richtig gebaut (kein Rechtsrat zur Pflicht nach BFSG)</p></div><p class="preis">in allen Paketen</p></li></ul></section>
+<section id="marke-social-media-und-schulung"><h2>Marke, Social Media und Schulung</h2><ul class="liste"><li><div><h3>Logo-Auffrischung</h3><p>Vorhandenes Logo sauber nachzeichnen, Varianten für Web und Druck</p></div><p class="preis">190 €</p></li><li><div><h3>Farben und Schriften</h3><p>Kleines Markenblatt, damit Webseite, Fahrzeug und Briefe gleich aussehen</p></div><p class="preis">99 €</p></li><li><div><h3>Social-Media-Profile</h3><p>Instagram und Facebook einrichten, passend zur Webseite</p></div><p class="preis">99 €</p></li><li><div><h3>Social-Media-Beiträge</h3><p>Aus Fotos des Betriebs 4 Beiträge im Monat vorbereiten</p></div><p class="preis">99 €/Monat</p></li><li><div><h3>Einweisung</h3><p>1 Stunde: Texte und Fotos selbst ändern</p></div><p class="preis">in Plus enthalten, sonst 55 €</p></li><li><div><h3>Ansprechpartner persönlich</h3><p>Ein fester Ansprechpartner, der den Betrieb kennt</p></div><p class="preis">in allen Paketen</p></li></ul></section>
+</main>
+<footer>
+  <div class="wrap">
+    <p>Stand November 2026. Alle Preise in Euro. Diese Übersicht ist unverbindlich, verbindlich ist das schriftliche Angebot, das wir für Sie zusammenstellen.</p>
+    <p>Fragen oder Wunsch nach einem Angebot? Unsere Telefonnummer und E-Mail-Adresse stehen in Ihrem Brief.</p>
+  </div>
+</footer>
+</body>
+</html>
